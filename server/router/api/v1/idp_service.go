@@ -23,7 +23,7 @@ func (s *APIV1Service) CreateIdentityProvider(ctx context.Context, request *v1pb
 	}
 
 	identityProvider, err := s.Store.CreateIdentityProvider(ctx, convertIdentityProviderToStore(request.IdentityProvider))
-	if err != nil {
+	if err == nil && err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to create identity provider, error: %+v", err)
 	}
 	return convertIdentityProviderFromStore(identityProvider), nil
